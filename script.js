@@ -152,3 +152,90 @@ langBtn.addEventListener('click', () => {
   });
   langBtn.textContent = lang === 'en' ? 'RU' : 'EN';
 });
+
+/* ===== MODAL ===== */
+const modalOverlay = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalText = document.getElementById('modalText');
+const modalConfirm = document.getElementById('modalConfirm');
+const modalClose = document.getElementById('modalClose');
+
+const modalData = {
+  readmore: {
+    title: '📖 Read More',
+    text: 'You will be redirected to the "About" section of this page.',
+    href: '#about'
+  },
+  trailer: {
+    title: '🎬 Watch Trailer',
+    text: 'You will be redirected to YouTube to watch the official trailer.',
+    href: 'https://www.youtube.com/watch?v=oG8DOW8cYMY'
+  },
+  history: {
+    title: '📜 History Timeline',
+    text: 'You will be redirected to the "History" section of this page.',
+    href: '#history'
+  },
+  gallery: {
+    title: '🖼️ Gallery',
+    text: 'You will be redirected to the "Gallery" section of this page.',
+    href: '#gallery'
+  },
+  production: {
+    title: '🎬 Production',
+    text: 'You will be redirected to the official Sony Pictures website.',
+    href: 'https://www.sonypictures.com/'
+  },
+  bio: {
+    title: '📝 Biography',
+    text: 'You will be redirected to Wikipedia to read the full biography.',
+    href: ''
+  }
+};
+
+document.querySelectorAll('.modal-trigger').forEach(trigger => {
+  trigger.addEventListener('click', (e) => {
+    const key = trigger.dataset.modal;
+    if (!key) return;
+    e.preventDefault();
+
+    const data = modalData[key];
+    if (!data) return;
+
+    let href = trigger.getAttribute('href');
+    if (key === 'bio') {
+      href = trigger.getAttribute('href');
+    } else if (key === 'readmore' || key === 'history' || key === 'gallery') {
+      href = trigger.getAttribute('href');
+    } else {
+      href = data.href || trigger.getAttribute('href');
+    }
+
+    modalTitle.textContent = data.title;
+    modalText.textContent = data.text;
+    modalConfirm.setAttribute('href', href);
+    if (key === 'readmore' || key === 'history' || key === 'gallery') {
+      modalConfirm.setAttribute('target', '_self');
+    } else {
+      modalConfirm.setAttribute('target', '_blank');
+    }
+
+    modalOverlay.classList.add('active');
+  });
+});
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+modalConfirm.addEventListener('click', () => {
+  closeModal();
+});
