@@ -1,3 +1,32 @@
+/* ===== IMAGES: все пути к картинкам меняются здесь ===== */
+const IMAGES = {
+  hero:       'img/bg.jpg',          // фон главного экрана
+  about:      'img/PETER.jpg',       // фото в секции About
+  cast_destin:'img/img 5.jpg',       // портреты (проверь и поменяй при необходимости)
+  cast_zendaya:'img/img 12.jpg',
+  cast_mark:  'img/img 15.jpg',
+  cast_jacob: 'img/img 16.jpg',
+  cast_tom:   'img/img 17.jpg',
+  cast_sydney:'img/img 7.jpg',
+  t2023:      'img/SPIDER.jpg',
+  t2024:      'img/SPIDY.jpg',
+  t2025a:     'img/SPIDERMAN.jpg',
+  t2025b:     'img/SM.jpg',
+  t2026:      'img/poster.jpg',
+  still1:     'img/img 1.jpg',
+  still2:     'img/img 2.webp',
+  still3:     'img/img 3.webp',
+  still4:     'img/img 4.webp',
+  still5:     'img/img 6.webp',
+  still6:     'img/img 8.webp',
+  still7:     'img/img 9.webp',
+  still8:     'img/img 10.webp'
+};
+document.querySelectorAll('[data-slot]').forEach(el => {
+  const src = IMAGES[el.dataset.slot];
+  if (src) el.style.backgroundImage = `url("${encodeURI(src)}")`;
+});
+
 /* ===== Header ===== */
 const header = document.getElementById('header');
 const onScroll = () => header.classList.toggle('header--scrolled', scrollY > 40);
