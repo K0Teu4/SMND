@@ -55,12 +55,13 @@
 
   <!-- ABOUT -->
   <section class="about" id="about">
+    <div class="about__web" data-slot="aboutweb" aria-hidden="true"></div>
     <div class="container about__inner">
       <div class="photo about__photo reveal" data-slot="about"></div>
       <div class="about__content reveal">
         <p class="label">Marvel Studios / Sony Pictures</p>
         <h2 data-i18n="about_title">About the Film</h2>
-        <p class="about__text" data-i18n="about_text">After the events of the multiverse, Peter Parker tries to return to normal life. But when a mysterious villain appears in New York with technology capable of rewriting reality, Spider-Man will be forced to make a choice that will change everything. Old allies, new enemies, and a mystery rooted in the past—all this awaits the hero in the new chapter of his story.</p>
+        <p class="about__text" data-i18n="about_text">After the events of the multiverse, Peter Parker tries to return to normal life. But when a mysterious villain appears in New York with technology capable of rewriting reality, Spider-Man will be forced to make a choice that will change everything. Old allies, new enemies, and a mystery rooted in the past&mdash;all this awaits the hero in the new chapter of his story.</p>
         <div class="about__actions">
           <a class="btn btn--red" href="#"><span data-i18n="hero_trailer">Watch Trailer</span><svg class="ic"><use href="#i-arr"/></svg></a>
           <a class="link-arrow" href="#history"><span data-i18n="about_more">More</span><svg class="ic"><use href="#i-chev"/></svg></a>
@@ -72,6 +73,7 @@
   <!-- CAST -->
   <section class="cast" id="cast">
     <div class="cast__header reveal">
+      <div class="bg" data-slot="castbg" aria-hidden="true"></div>
       <p class="label" data-i18n="cast_label">Creators</p>
       <h2 data-i18n="cast_title">The faces of a new era</h2>
       <p class="section-sub" data-i18n="cast_sub">A groundbreaking team brings a fresh vision to the iconic hero.</p>
@@ -81,13 +83,13 @@
         <article class="card card--tall card--center reveal" data-slot="cast_destin">
           <p class="role" data-i18n="role_director">Director</p>
           <h3>Destin Cretton</h3>
-          <p class="card__text" data-i18n="desc_destin">Visionary filmmaker with a gift for intimate, character-driven stories.</p>
+          <p class="card__text" data-i18n="desc_destin">Visionary filmmaker with a gift for intimate, character-driven stories. He blends emotional depth with visual poetry, from indie gems to Marvel blockbusters.</p>
           <a class="link-arrow" href="#"><span data-i18n="bio">Bio</span><svg class="ic"><use href="#i-chev"/></svg></a>
         </article>
         <article class="card card--short card--top reveal" data-slot="cast_jacob">
           <p class="role" data-i18n="role_actor">Actor</p>
           <h3>Jacob Batalon</h3>
-          <p class="card__text" data-i18n="desc_jacob">Beloved scene-stealer who balances humor and loyalty as Peter best friend.</p>
+          <p class="card__text" data-i18n="desc_jacob">Beloved scene-stealer who balances humor and loyalty as Peter Parker&rsquo;s best friend. A comic-book enthusiast turned fan-favorite, he radiates warmth in every role.</p>
           <a class="link-arrow" href="#"><span data-i18n="bio">Bio</span><svg class="ic"><use href="#i-chev"/></svg></a>
         </article>
       </div>
@@ -95,21 +97,21 @@
         <article class="card card--short card--top reveal" data-slot="cast_zendaya">
           <p class="role" data-i18n="role_actress_prod">Actress &amp; Producer</p>
           <h3>Zendaya</h3>
-          <p class="card__text" data-i18n="desc_zendaya">Award-winning powerhouse known for her fierce elegance and genre-spanning roles.</p>
+          <p class="card__text" data-i18n="desc_zendaya">Award-winning powerhouse known for her fierce elegance and genre-spanning roles. A style icon and advocate for self-confidence, she captivates both on screen and off.</p>
           <a class="link-arrow" href="#"><span data-i18n="bio">Bio</span><svg class="ic"><use href="#i-chev"/></svg></a>
         </article>
-        <article class="card card--tall card--center reveal" data-slot="cast_tom">
+        <article class="card card--xtall card--center reveal" data-slot="cast_tom">
           <p class="role" data-i18n="role_actor">Actor</p>
           <h3>Tom Holland</h3>
-          <p class="card__text" data-i18n="desc_tom">Charismatic star who brought Spider-Man to life with youthful energy and heart.</p>
+          <p class="card__text" data-i18n="desc_tom">Charismatic star who brought Spider-Man to life with youthful energy and heart. A trained dancer and avid golfer who never outgrows his love for storytelling.</p>
           <a class="link-arrow" href="#"><span data-i18n="bio">Bio</span><svg class="ic"><use href="#i-chev"/></svg></a>
         </article>
       </div>
       <div class="cast__col">
-        <article class="card card--mid card--center reveal" data-slot="cast_mark">
+        <article class="card card--tall card--center reveal" data-slot="cast_mark">
           <p class="role" data-i18n="role_actor_prod">Actor &amp; Producer</p>
           <h3>Mark Ruffalo</h3>
-          <p class="card__text" data-i18n="desc_mark">Versatile veteran who brings raw intensity and quiet humanity to every character.</p>
+          <p class="card__text" data-i18n="desc_mark">Versatile veteran who brings raw intensity and quiet humanity to every character. A passionate activist off-screen, he&rsquo;s as compelling in drama as he is in superhero epics.</p>
           <a class="link-arrow" href="#"><span data-i18n="bio">Bio</span><svg class="ic"><use href="#i-chev"/></svg></a>
         </article>
         <article class="card card--short card--top reveal" data-slot="cast_sydney">
@@ -124,6 +126,7 @@
 
   <!-- HISTORY -->
   <section class="history" id="history">
+    <div class="bg" data-slot="histbg" aria-hidden="true"></div>
     <div class="container">
       <p class="label reveal" data-i18n="hist_label">Timeline</p>
       <h2 class="reveal" data-i18n="hist_title">The long road back to the mask</h2>
@@ -180,6 +183,7 @@
 
   <!-- GALLERY -->
   <section class="gallery" id="gallery">
+    <div class="gallery__web" data-slot="galweb" aria-hidden="true"></div>
     <div class="gallery__head reveal">
       <h2 data-i18n="gal_title">Film Stills</h2>
       <p class="section-sub" data-i18n="gal_sub">A city of shadows, a spark of red and blue</p>
@@ -194,7 +198,6 @@
           <div class="slide" data-slot="still5"></div>
           <div class="slide" data-slot="still6"></div>
           <div class="slide" data-slot="still7"></div>
-          <div class="slide" data-slot="still8"></div>
         </div>
       </div>
       <div class="carousel__ui">
