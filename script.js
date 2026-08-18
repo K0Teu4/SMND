@@ -1,4 +1,3 @@
-/* ===== IMAGES ===== */
 const IMAGES = {
   hero:       'img/SPIDERMAN.jpg',
   about:      'img/poster.jpg',
@@ -25,17 +24,39 @@ const IMAGES = {
   still6:     'img/img 11.webp',
   still7:     'img/img 6.webp'
 };
+const BG_SLOTS = new Set(['hero', 'aboutweb', 'castbg', 'histbg', 'galweb']);
 document.querySelectorAll('[data-slot]').forEach(el => {
   const src = IMAGES[el.dataset.slot];
-  if (src) el.style.backgroundImage = `url("${encodeURI(src)}")`;
+  if (!src) return;
+  if (BG_SLOTS.has(el.dataset.slot)) {
+    el.style.backgroundImage = `url("${encodeURI(src)}")`;
+  } else {
+    const img = new Image();
+    img.src = src;
+    img.alt = '';
+    el.prepend(img);
+  }
 });
 
-/* ===== Header ===== */
+const LINKS = {
+  trailer: 'https://www.youtube.com/results?search_query=Spider-Man%3A+Brand+New+Day+%7C+Official+Trailer',
+  privacy: 'https://www.sonypictures.com/corp/privacy.html',
+  terms:   'https://www.sonypictures.com/corp/tos.html',
+  cookies: 'https://www.sonypictures.com/corp/privacy.html',
+  wiki: {
+    cast_destin: { en:'https://en.wikipedia.org/wiki/Destin_Daniel_Cretton', ru:'https://ru.wikipedia.org/wiki/Креттон,_Дестин_Дэниел' },
+    cast_zendaya:{ en:'https://en.wikipedia.org/wiki/Zendaya',                ru:'https://ru.wikipedia.org/wiki/Зендея' },
+    cast_mark:   { en:'https://en.wikipedia.org/wiki/Mark_Ruffalo',           ru:'https://ru.wikipedia.org/wiki/Руффало,_Марк' },
+    cast_jacob:  { en:'https://en.wikipedia.org/wiki/Jacob_Batalon',          ru:'https://ru.wikipedia.org/wiki/Баталон,_Джейкоб' },
+    cast_tom:    { en:'https://en.wikipedia.org/wiki/Tom_Holland',            ru:'https://ru.wikipedia.org/wiki/Холланд,_Том' },
+    cast_sydney: { en:'https://en.wikipedia.org/wiki/Sydney_Sweeney',         ru:'https://ru.wikipedia.org/wiki/Суини,_Сидни' }
+  }
+};
+
 const header = document.getElementById('header');
 const onScroll = () => header.classList.toggle('header--scrolled', scrollY > 40);
 addEventListener('scroll', onScroll); onScroll();
 
-/* ===== Scrollspy ===== */
 const links = [...document.querySelectorAll('.nav a')];
 const spy = new IntersectionObserver(es => {
   es.forEach(e => {
@@ -45,13 +66,11 @@ const spy = new IntersectionObserver(es => {
 }, { rootMargin: '-45% 0px -50% 0px' });
 document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
 
-/* ===== Reveal on scroll ===== */
 const rev = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('visible'); rev.unobserve(e.target); }
 }), { threshold: .15 });
 document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
 
-/* ===== Carousel ===== */
 const carousel = document.getElementById('carousel');
 const track = document.getElementById('track');
 const slides = [...track.children];
@@ -66,8 +85,8 @@ slides.forEach((_, i) => {
 });
 const dots = [...dotsWrap.children];
 
-const step = () => slides[0].getBoundingClientRect().width + 24;
-const maxIdx = () => Math.max(0, slides.length - Math.floor((carousel.clientWidth + 24) / step()));
+const step = () => slides[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).gap || 32);
+const maxIdx = () => Math.max(0, slides.length - Math.max(1, Math.floor((carousel.clientWidth + 32) / step())));
 
 function update() {
   idx = Math.max(0, Math.min(idx, maxIdx()));
@@ -79,7 +98,6 @@ document.getElementById('nextBtn').addEventListener('click', () => { idx++; upda
 addEventListener('resize', update);
 update();
 
-/* ===== i18n (RU / EN) ===== */
 const I18N = {
   en: {
     nav_home:'Home', nav_about:'About', nav_cast:'Cast', nav_history:'History', nav_gallery:'Gallery',
@@ -108,7 +126,20 @@ const I18N = {
     ev_2025b:'The cast is revealed, confirming the debut of the Chameleon as the main villain.',
     ev_2026:'Filming wraps. The director calls it a brutal and honest love letter to Queens.',
     gal_title:'Film Stills', gal_sub:'A city of shadows, a spark of red and blue',
-    foot_priv:'Privacy policy', foot_terms:'Terms of service', foot_cookies:'Cookies settings'
+    foot_priv:'Privacy policy', foot_terms:'Terms of service', foot_cookies:'Cookies settings',
+    modal_bio_title:'Bio \u2014 {name}',
+    modal_bio_more:'Full biography and filmography \u2014 on Wikipedia.',
+    modal_btn_wiki:'Wikipedia',
+    modal_trailer_title:'Watch Trailer',
+    modal_trailer_text:'The official trailer of \u00ABSpider-Man: Brand New Day\u00BB \u2014 on the Sony Pictures Entertainment YouTube channel.',
+    modal_btn_yt:'Watch on YouTube',
+    modal_priv_title:'Privacy policy',
+    modal_priv_text:'Sony Pictures Entertainment collects only the data required for the site to operate: cookies, language settings and anonymous visit statistics. Your data is not shared with third parties.',
+    modal_terms_title:'Terms of service',
+    modal_terms_text:'All materials on this site \u2014 images, texts and videos \u2014 belong to Sony Pictures and Marvel Studios. Use of the materials is permitted for personal, non-commercial purposes only.',
+    modal_cookies_title:'Cookies settings',
+    modal_cookies_text:'The site uses cookies to operate correctly and to remember your language choice. You can manage or disable cookies in your browser settings at any time.',
+    modal_btn_sony:'Sony Pictures'
   },
   ru: {
     nav_home:'Главная', nav_about:'О фильме', nav_cast:'Команда', nav_history:'История', nav_gallery:'Кадры',
@@ -137,105 +168,92 @@ const I18N = {
     ev_2025b:'Объявлен актёрский состав: главным злодеем станет Хамелеон.',
     ev_2026:'Съёмки завершены. Режиссёр называет фильм жестоким и честным признанием в любви Квинсу.',
     gal_title:'Кадры из фильма', gal_sub:'Город теней, вспышки красного и синего',
-    foot_priv:'Политика конфиденциальности', foot_terms:'Условия использования', foot_cookies:'Настройки cookies'
+    foot_priv:'Политика конфиденциальности', foot_terms:'Условия использования', foot_cookies:'Настройки cookies',
+    modal_bio_title:'Биография \u2014 {name}',
+    modal_bio_more:'Полная биография и фильмография \u2014 в Википедии.',
+    modal_btn_wiki:'Википедия',
+    modal_trailer_title:'Смотреть трейлер',
+    modal_trailer_text:'Официальный трейлер \u00ABЧеловек-паук: Новый день\u00BB \u2014 на YouTube-канале Sony Pictures Entertainment.',
+    modal_btn_yt:'Смотреть на YouTube',
+    modal_priv_title:'Политика конфиденциальности',
+    modal_priv_text:'Sony Pictures Entertainment собирает только данные, необходимые для работы сайта: cookies, языковые настройки и обезличенную статистику посещений. Ваши данные не передаются третьим лицам.',
+    modal_terms_title:'Условия использования',
+    modal_terms_text:'Все материалы сайта \u2014 изображения, тексты и видео \u2014 принадлежат Sony Pictures и Marvel Studios. Использование материалов разрешено только в личных, некоммерческих целях.',
+    modal_cookies_title:'Настройки cookies',
+    modal_cookies_text:'Сайт использует cookies для корректной работы и запоминания выбранного языка. Управлять cookies или отключить их можно в настройках браузера в любой момент.',
+    modal_btn_sony:'Sony Pictures'
   }
 };
 
 let lang = 'en';
+try { lang = localStorage.getItem('smnd-lang') || 'en'; } catch (e) {}
 const langBtn = document.getElementById('langBtn');
-langBtn.addEventListener('click', () => {
-  lang = lang === 'en' ? 'ru' : 'en';
+
+function applyI18n() {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const t = I18N[lang][el.dataset.i18n];
     if (t) el.textContent = t;
   });
   langBtn.textContent = lang === 'en' ? 'RU' : 'EN';
-});
-
-/* ===== MODAL ===== */
-const modalOverlay = document.getElementById('modalOverlay');
-const modalTitle = document.getElementById('modalTitle');
-const modalText = document.getElementById('modalText');
-const modalConfirm = document.getElementById('modalConfirm');
-const modalClose = document.getElementById('modalClose');
-
-const modalData = {
-  readmore: {
-    title: '📖 Read More',
-    text: 'You will be redirected to the "About" section of this page.',
-    href: '#about'
-  },
-  trailer: {
-    title: '🎬 Watch Trailer',
-    text: 'You will be redirected to YouTube to watch the official trailer.',
-    href: 'https://www.youtube.com/watch?v=oG8DOW8cYMY'
-  },
-  history: {
-    title: '📜 History Timeline',
-    text: 'You will be redirected to the "History" section of this page.',
-    href: '#history'
-  },
-  gallery: {
-    title: '🖼️ Gallery',
-    text: 'You will be redirected to the "Gallery" section of this page.',
-    href: '#gallery'
-  },
-  production: {
-    title: '🎬 Production',
-    text: 'You will be redirected to the official Sony Pictures website.',
-    href: 'https://www.sonypictures.com/'
-  },
-  bio: {
-    title: '📝 Biography',
-    text: 'You will be redirected to Wikipedia to read the full biography.',
-    href: ''
-  }
-};
-
-document.querySelectorAll('.modal-trigger').forEach(trigger => {
-  trigger.addEventListener('click', (e) => {
-    const key = trigger.dataset.modal;
-    if (!key) return;
-    e.preventDefault();
-
-    const data = modalData[key];
-    if (!data) return;
-
-    let href = trigger.getAttribute('href');
-    if (key === 'bio') {
-      href = trigger.getAttribute('href');
-    } else if (key === 'readmore' || key === 'history' || key === 'gallery') {
-      href = trigger.getAttribute('href');
-    } else {
-      href = data.href || trigger.getAttribute('href');
-    }
-
-    modalTitle.textContent = data.title;
-    modalText.textContent = data.text;
-    modalConfirm.setAttribute('href', href);
-    if (key === 'readmore' || key === 'history' || key === 'gallery') {
-      modalConfirm.setAttribute('target', '_self');
-    } else {
-      modalConfirm.setAttribute('target', '_blank');
-    }
-
-    modalOverlay.classList.add('active');
-  });
-});
-
-function closeModal() {
-  modalOverlay.classList.remove('active');
 }
+applyI18n();
 
-modalClose.addEventListener('click', closeModal);
-modalOverlay.addEventListener('click', (e) => {
-  if (e.target === modalOverlay) closeModal();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+langBtn.addEventListener('click', () => {
+  lang = lang === 'en' ? 'ru' : 'en';
+  try { localStorage.setItem('smnd-lang', lang); } catch (e) {}
+  applyI18n();
 });
 
-modalConfirm.addEventListener('click', () => {
-  closeModal();
+const modal = document.getElementById('modal');
+const mTitle = document.getElementById('modalTitle');
+const mText = document.getElementById('modalText');
+const mBtn = document.getElementById('modalBtn');
+const mBtnText = document.getElementById('modalBtnText');
+let lastFocus = null;
+
+function openModal(type, trigger) {
+  const t = I18N[lang];
+  let title = '', text = '', href = '#', btn = '';
+  if (type === 'bio') {
+    const card = trigger && trigger.closest('.card');
+    const slot = card ? card.dataset.slot : '';
+    const name = card ? card.querySelector('h3').textContent.trim() : '';
+    title = t.modal_bio_title.replace('{name}', name);
+    text = (t['desc_' + slot.replace('cast_', '')] || '') + ' ' + t.modal_bio_more;
+    href = (LINKS.wiki[slot] || {})[lang] || ((LINKS.wiki[slot] || {}).en) || '#';
+    btn = t.modal_btn_wiki;
+  } else if (type === 'trailer') {
+    title = t.modal_trailer_title; text = t.modal_trailer_text;
+    href = LINKS.trailer; btn = t.modal_btn_yt;
+  } else {
+    title = t['modal_' + type + '_title'] || '';
+    text = t['modal_' + type + '_text'] || '';
+    href = LINKS[type] || '#'; btn = t.modal_btn_sony;
+  }
+  if (!title && trigger) title = trigger.textContent.trim();
+  if (!text) text = title;
+  mTitle.textContent = title;
+  mText.textContent = text;
+  mBtnText.textContent = btn;
+  mBtn.href = href;
+  lastFocus = document.activeElement;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  modal.querySelector('.modal__close').focus();
+}
+function closeModal() {
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+}
+document.addEventListener('click', e => {
+  const trigger = e.target.closest('[data-modal]');
+  if (trigger) { e.preventDefault(); openModal(trigger.dataset.modal, trigger); return; }
+  if (e.target.closest('[data-close]')) { closeModal(); }
+});
+addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
 });
