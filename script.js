@@ -34,6 +34,9 @@ document.querySelectorAll('[data-slot]').forEach(el => {
     const img = new Image();
     img.src = src;
     img.alt = '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    if (el.dataset.slot === 'hero') img.fetchPriority = 'high';
     el.prepend(img);
   }
 });
@@ -55,7 +58,7 @@ const LINKS = {
 
 const header = document.getElementById('header');
 const onScroll = () => header.classList.toggle('header--scrolled', scrollY > 40);
-addEventListener('scroll', onScroll); onScroll();
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 const links = [...document.querySelectorAll('.nav a')];
 const spy = new IntersectionObserver(es => {
@@ -256,4 +259,21 @@ document.addEventListener('click', e => {
 });
 addEventListener('keydown', e => {
   if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
+
+const burger = document.getElementById('burger');
+const nav = document.querySelector('.nav');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  nav.classList.toggle('active');
+  document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+});
+
+document.querySelectorAll('.nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    burger.classList.remove('active');
+    nav.classList.remove('active');
+    document.body.style.overflow = '';
+  });
 });

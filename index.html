@@ -30,7 +30,7 @@
 <header class="header" id="header">
   <div class="header__inner">
     <div class="header__left">
-      <a class="logo" href="#hero" aria-label="Home"><img src="img/logo.jpg" alt="Spider-Man"></a>
+      <a class="logo" href="#hero" aria-label="Home"><img src="img/logo.jpg" alt="Spider-Man" loading="lazy" decoding="async"></a>
       <nav class="nav">
         <a href="#hero" class="active" data-i18n="nav_home">Home</a>
         <a href="#about" data-i18n="nav_about">About</a>
@@ -40,11 +40,15 @@
       </nav>
     </div>
     <button class="lang" id="langBtn" type="button">RU</button>
+    <button class="burger" id="burger" type="button" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="hero" id="hero" data-slot="hero">
     <div class="hero__content">
       <div class="hero__titles">
@@ -59,7 +63,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="about__web" data-slot="aboutweb" aria-hidden="true"></div>
     <div class="container about__inner">
@@ -76,7 +79,6 @@
     </div>
   </section>
 
-  <!-- CAST -->
   <section class="cast" id="cast">
     <div class="cast__header reveal">
       <div class="bg" data-slot="castbg" aria-hidden="true"></div>
@@ -130,7 +132,6 @@
     </div>
   </section>
 
-  <!-- HISTORY -->
   <section class="history" id="history">
     <div class="bg" data-slot="histbg" aria-hidden="true"></div>
     <div class="container">
@@ -189,7 +190,6 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
   <section class="gallery" id="gallery">
     <div class="gallery__web" data-slot="galweb" aria-hidden="true"></div>
     <div class="container gallery__inner">
@@ -229,7 +229,7 @@
         <path d="M9 0h1v1H9zM11 1h1v1h-1zM9 3h1v1H9zM12 3h1v1h-1zM10 5h1v1h-1zM8 8h1v1H8zM10 8h2v2h-2zM13 9h1v1h-1zM15 8h1v1h-1zM17 9h1v1h-1zM19 8h1v1h-1zM8 11h1v1H8zM11 11h1v1h-1zM14 11h2v1h-2zM17 11h1v1h-1zM19 11h1v1h-1zM9 13h1v1H9zM12 13h1v1h-1zM15 13h1v1h-1zM18 13h2v1h-2zM9 15h1v1H9zM11 16h2v1h-2zM14 15h1v1h-1zM16 16h1v1h-1zM18 15h1v1h-1zM9 18h1v1H9zM12 18h1v1h-1zM14 19h2v1h-2zM17 18h1v1h-1zM19 19h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM16 20h1v1h-1zM19 20h1v1h-1z"/>
       </svg>
       <div class="footer__center">
-        <a class="logo" href="#hero" aria-label="Home"><img src="img/logo.jpg" alt="Spider-Man"></a>
+        <a class="logo" href="#hero" aria-label="Home"><img src="img/logo.jpg" alt="Spider-Man" loading="lazy" decoding="async"></a>
         <nav class="footer__nav">
           <a href="#hero" data-i18n="nav_home">Home</a>
           <a href="#about" data-i18n="nav_about">About</a>
@@ -257,7 +257,6 @@
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal__backdrop" data-close></div>
   <div class="modal__box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
