@@ -36,7 +36,6 @@ document.querySelectorAll('[data-slot]').forEach(el => {
     img.alt = '';
     img.loading = 'lazy';
     img.decoding = 'async';
-    if (el.dataset.slot === 'hero') img.fetchPriority = 'high';
     el.prepend(img);
   }
 });
